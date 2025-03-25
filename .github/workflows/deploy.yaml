@@ -1,0 +1,37 @@
+name: "Deploy pipeline"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      region:
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - env:
+          KUBECONFIG: ${{ secrests.KUBECONFIG }}
+          HERONAME: ${{ env.HERONAME }}
+          GLOBAL_KUBECONFIG: ${{ secrests.GLOBAL_KUBECONFIG }}
+          GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          REGION: ${{ inputs.region }}
+        run: |
+          echo "$KUBECONFIG" >> ~/.kube/config
+          echo "$GLOBAL_KUBECONFIG" >> ~/.kube/config 
+          cat ~/.kube/config
+          echo $HERONAME
+          echo $GLOBAL_HERONAME 
+          echo $ENVIRONMENT
+          echo $REGION
+

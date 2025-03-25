@@ -1,0 +1,21 @@
+name: "Main pipeline"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      #environment: testing
+      #region: "us-east-2"
+      #environment: staging
+      #region: "us-east-1"
+      environment: production
+      region: "sa-east-1"
