@@ -50,7 +50,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.PRD_AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.PRD_AWS_REGION }}
         cluster-name: ${{ secrets.PRD_CLUSTER1_NAME }}
-        action: ${{ inputs.action }}
+        #action: ${{ inputs.action }}.default
+        action: ${{ inputs.action }}.('install')
+        #action: ${{ inputs.action }}.'install'
         dry-run: false
         config-files: prod/helm-watchdog-pod-delete/values.yaml
         chart-path: helm-watchdog-pod-delete/helm-watchdog-pod-delete
