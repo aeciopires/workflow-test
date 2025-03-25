@@ -77,7 +77,7 @@ jobs:
         # Custom values files if necessary
         #config-files: prod/nginx/values.yaml
         # Extra environment variables if the supported by helm chart
-        values: controller.env={KEY1:value1},controller.env={KEY2:value2},image.tag=4.0.1-alpine
+        values: controller.env=[{"name":"KEY1","value":"value1"},{"name":"KEY2","value":"value2"}],image.tag=4.0.1-alpine
         #values: controller.env=["KEY1:value1","KEY2:value2"],image.tag=4.0.1-alpine
         chart-path: nginx/charts/nginx-ingress
         version: 2.0.1
