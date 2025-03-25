@@ -54,7 +54,7 @@ jobs:
         dry-run: false
         config-files: prod/helm-watchdog-pod-delete/values.yaml
         # Extra environment variables if the supported by helm chart
-        values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2
+        #values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2
         chart-path: helm-watchdog-pod-delete/helm-watchdog-pod-delete
         version: 0.2.0
         namespace: helm-watchdog-pod-delete
@@ -63,3 +63,26 @@ jobs:
         create-namespace: true
         name: helm-watchdog-pod-delete
         chart-repository: https://aeciopires.github.io/helm-watchdog-pod-delete
+
+
+    - name: Deploy nginx
+      uses: bitovi/github-actions-deploy-eks-helm@v1.2.12
+      with:
+        aws-access-key-id: ${{ secrets.PRD_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.PRD_AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.PRD_AWS_REGION }}
+        cluster-name: ${{ secrets.PRD_CLUSTER1_NAME }}
+        action: ${{ github.event.inputs.action || 'install' }}
+        dry-run: false
+        # Custom values files if necessary
+        #config-files: prod/nginx/values.yaml
+        # Extra environment variables if the supported by helm chart
+        values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2,image.tag=1.27.4
+        chart-path: nginx/nginx
+        version: 1.27.4
+        namespace: nginx
+        timeout: 900s
+        helm-wait: true
+        create-namespace: true
+        name: nginx
+        chart-repository: oci://registry-1.docker.io/bitnamicharts/nginx
