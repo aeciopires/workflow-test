@@ -1,0 +1,62 @@
+name: "Main pipeline"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+# ATTENTION!!!
+# GitHub Actions does not automatically expand secrets or env in env.
+# The workaround is to define these variables directly inside run.
+# When a workflow calls another (deploy.yaml being called by main.yaml), the global secrets are not automatically passed.
+# The workaround is to explicitly add them in the workflow call.
+# The workflow_call does not support passing env directly in main.yaml. 
+# Any environment variables set in an env context defined at the workflow level in the caller workflow are not propagated to the called workflow.
+# Similarly, environment variables set in the env context, defined in the called workflow, 
+# are not accessible in the env context of the caller workflow. 
+# Instead, you must use outputs of the reusable workflow.
+# References:
+# https://github.com/orgs/community/discussions/26671
+# https://docs.github.com/en/actions/sharing-automations/reusing-workflows#limitations
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables
+# https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-environment-variable
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#env-context
+# https://docs.github.com/en/actions/sharing-automations/reusing-workflows#using-outputs-from-a-reusable-workflow
+# 
+
+jobs:
+  #setup_envs:
+  #  name: Generate output
+  #  runs-on: ubuntu-latest
+  #  # Map the job outputs to step outputs
+  #  outputs:
+  #    #heroname: ${{ env.HERONAME }}
+  #    global_heroname: ${{ steps.envs.outputs.GLOBAL_HERONAME }}
+  #  steps:
+  #    - name: Output envs
+  #      id: envs
+  #      env:
+  #        GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
+  #      run: |
+  #        echo "GLOBAL_HERONAME=$GLOBAL_HERONAME" >> $GITHUB_OUTPUT
+  deploy:
+    #needs: setup_envs
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      #environment: testing
+      #region: "us-east-2"
+      #environment: staging
+      #region: "us-east-1"
+      environment: production
+      region: "sa-east-1"
+      #heroname: ${{ env.HERONAME }}
+      #global_heroname: ${{ needs.setup_envs.outputs.global_heroname }}
+    secrets:
+      KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
+
