@@ -78,7 +78,7 @@ jobs:
         #config-files: prod/nginx/values.yaml
         # Extra environment variables if the supported by helm chart
         values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2,image.tag=4.0.1-alpine
-        chart-path: nginx/charts/nginx-ingress/
+        chart-path: nginx/charts/nginx-ingress
         version: 2.0.1
         namespace: nginx
         timeout: 900s
