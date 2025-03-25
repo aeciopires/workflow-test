@@ -10,6 +10,26 @@ permissions:
   contents: read
 
 jobs:
+  main_deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          HERONAME: ${{ env.HERONAME }}
+          GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
+          GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
+        run: |
+          mkdir ~/.kube/
+          echo "$KUBECONFIG" >> ~/.kube/config
+          echo "$GLOBAL_KUBECONFIG" >> ~/.kube/config 
+          cat ~/.kube/config
+          echo $HERONAME
+          echo $GLOBAL_HERONAME 
   deploy:
     uses: ./.github/workflows/deploy.yaml
     with:
