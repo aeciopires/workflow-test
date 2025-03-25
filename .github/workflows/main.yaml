@@ -36,9 +36,14 @@ jobs:
     # Map the job outputs to step outputs
     outputs:
       #heroname: ${{ env.HERONAME }}
-      global_heroname: ${{ env.GLOBAL_HERONAME }}
+      global_heroname: ${{ steps.envs.outputs.GLOBAL_HERONAME }}
     steps:
-      - run: echo "Exposing env vars"
+      - name: Output envs
+        id: envs
+        env:
+          GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
+        run: |
+          echo "GLOBAL_HERONAME=$GLOBAL_HERONAME" >> $GITHUB_OUTPUT
   deploy:
     needs: setup_envs
     uses: ./.github/workflows/deploy.yaml
