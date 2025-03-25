@@ -77,12 +77,12 @@ jobs:
         # Custom values files if necessary
         #config-files: prod/nginx/values.yaml
         # Extra environment variables if the supported by helm chart
-        values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2,image.tag=1.27.4
+        values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2,image.tag=4.0.1-alpine
         chart-path: nginx/nginx
-        version: 1.27.4
+        version: 2.0.1
         namespace: nginx
         timeout: 900s
         helm-wait: true
         create-namespace: true
         name: nginx
-        chart-repository: oci://registry-1.docker.io/bitnamicharts/nginx
+        chart-repository: oci://ghcr.io/nginx/charts/nginx-ingress
