@@ -45,7 +45,7 @@ jobs:
   #      run: |
   #        echo "GLOBAL_HERONAME=$GLOBAL_HERONAME" >> $GITHUB_OUTPUT
   deploy:
-    needs: setup_envs
+    #needs: setup_envs
     uses: ./.github/workflows/deploy.yaml
     with:
       #environment: testing
