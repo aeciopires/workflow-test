@@ -9,9 +9,9 @@ on:
       region:
         type: string
         required: true
-      heroname:
-        type: string
-        required: true
+      #heroname:
+      #  type: string
+      #  required: true
       global_heroname:
         type: string
         required: true
@@ -36,7 +36,7 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" >> ~/.kube/config
           echo "${{ secrets.GLOBAL_KUBECONFIG }}" >> ~/.kube/config
           cat ~/.kube/config
-          echo "HERONAME=${{ inputs.heroname }}"
+          #echo "HERONAME=${{ inputs.heroname }}"
           echo "GLOBAL_HERONAME=${{ inputs.global_heroname }}"
           echo "ENVIRONMENT=${{ inputs.environment }}"
           echo "REGION=${{ inputs.region }}"
