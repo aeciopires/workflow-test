@@ -30,20 +30,20 @@ permissions:
 # 
 
 jobs:
-  setup_envs:
-    name: Generate output
-    runs-on: ubuntu-latest
-    # Map the job outputs to step outputs
-    outputs:
-      #heroname: ${{ env.HERONAME }}
-      global_heroname: ${{ steps.envs.outputs.GLOBAL_HERONAME }}
-    steps:
-      - name: Output envs
-        id: envs
-        env:
-          GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
-        run: |
-          echo "GLOBAL_HERONAME=$GLOBAL_HERONAME" >> $GITHUB_OUTPUT
+  #setup_envs:
+  #  name: Generate output
+  #  runs-on: ubuntu-latest
+  #  # Map the job outputs to step outputs
+  #  outputs:
+  #    #heroname: ${{ env.HERONAME }}
+  #    global_heroname: ${{ steps.envs.outputs.GLOBAL_HERONAME }}
+  #  steps:
+  #    - name: Output envs
+  #      id: envs
+  #      env:
+  #        GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
+  #      run: |
+  #        echo "GLOBAL_HERONAME=$GLOBAL_HERONAME" >> $GITHUB_OUTPUT
   deploy:
     needs: setup_envs
     uses: ./.github/workflows/deploy.yaml
@@ -55,7 +55,7 @@ jobs:
       environment: production
       region: "sa-east-1"
       #heroname: ${{ env.HERONAME }}
-      global_heroname: ${{ needs.setup_envs.outputs.global_heroname }}
+      #global_heroname: ${{ needs.setup_envs.outputs.global_heroname }}
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
       GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
