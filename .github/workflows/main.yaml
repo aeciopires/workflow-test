@@ -64,7 +64,8 @@ jobs:
         name: helm-watchdog-pod-delete
         chart-repository: https://aeciopires.github.io/helm-watchdog-pod-delete
 
-
+    # https://artifacthub.io/packages/helm/nginx-ingress-chart/nginx-ingress
+    # https://docs.nginx.com/nginx-ingress-controller/installation/installing-nic/installation-with-helm/ 
     - name: Deploy nginx
       uses: bitovi/github-actions-deploy-eks-helm@v1.2.12
       with:
