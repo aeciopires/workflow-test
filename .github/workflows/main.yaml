@@ -9,10 +9,14 @@ permissions:
   id-token: write
   contents: read
 
+# ATTENTION!!!
 # GitHub Actions does not automatically expand secrets or env in env.
 # The workaround is to define these variables directly inside run.
 # When a workflow calls another (deploy.yaml being called by main.yaml), the global secrets are not automatically passed.
 # The workaround is to explicitly add them in the workflow call.
+# The workflow_call does not support passing env directly in main.yaml. 
+# To fix this, we need to pass the environment variables (HERONAME and GLOBAL_HERONAME) as inputs to deploy.yaml,
+# and within deploy.yaml, assign them correctly to the environment variables.
 
 jobs:
   deploy:

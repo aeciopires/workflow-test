@@ -11,10 +11,10 @@ on:
         required: true
       heroname:
         type: string
-        required: false
+        required: true
       global_heroname:
         type: string
-        required: false
+        required: true
     secrets:
       KUBECONFIG:
         required: true
