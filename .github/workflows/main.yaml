@@ -37,6 +37,8 @@ jobs:
     outputs:
       #heroname: ${{ env.HERONAME }}
       global_heroname: ${{ env.GLOBAL_HERONAME }}
+    steps:
+      - run: echo "Exposing env vars"
   deploy:
     needs: setup_envs
     uses: ./.github/workflows/deploy.yaml
@@ -52,6 +54,4 @@ jobs:
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
       GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
-    outputs:
-      user: ${{ env.USER }}
 
