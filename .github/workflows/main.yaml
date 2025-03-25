@@ -9,6 +9,11 @@ permissions:
   id-token: write
   contents: read
 
+# GitHub Actions does not automatically expand secrets or env in env.
+# The workaround is to define these variables directly inside run.
+# When a workflow calls another (deploy.yaml being called by main.yaml), the global secrets are not automatically passed.
+# The workaround is to explicitly add them in the workflow call.
+
 jobs:
   deploy:
     uses: ./.github/workflows/deploy.yaml
@@ -19,6 +24,8 @@ jobs:
       #region: "us-east-1"
       environment: production
       region: "sa-east-1"
+      heroname: ${{ env.HERONAME }}
+      global_heroname: ${{ env.GLOBAL_HERONAME }}
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
       GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}

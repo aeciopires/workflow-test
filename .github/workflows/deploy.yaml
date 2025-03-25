@@ -9,16 +9,17 @@ on:
       region:
         type: string
         required: true
+      heroname:
+        type: string
+        required: false
+      global_heroname:
+        type: string
+        required: false
     secrets:
       KUBECONFIG:
         required: true
       GLOBAL_KUBECONFIG:
         required: true
-    #outputs:
-    #  HERONAME:
-    #    required: false
-    #  GLOBAL_HERONAME:
-    #    required: false
 
 jobs:
   deploy:
@@ -35,7 +36,7 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" >> ~/.kube/config
           echo "${{ secrets.GLOBAL_KUBECONFIG }}" >> ~/.kube/config
           cat ~/.kube/config
-          #echo "HERONAME=${{ env.HERONAME }}"
-          #echo "GLOBAL_HERONAME=${{ env.GLOBAL_HERONAME }}"
+          echo "HERONAME=${{ inputs.heroname }}"
+          echo "GLOBAL_HERONAME=${{ inputs.global_heroname }}"
           echo "ENVIRONMENT=${{ inputs.environment }}"
           echo "REGION=${{ inputs.region }}"
