@@ -9,6 +9,16 @@ on:
       region:
         type: string
         required: true
+    secrets:
+      KUBECONFIG:
+        required: true
+      GLOBAL_KUBECONFIG:
+        required: true
+    outputs:
+      HERONAME:
+        required: false
+      GLOBAL_HERONAME:
+        required: false
 
 jobs:
   deploy:
@@ -19,20 +29,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-          HERONAME: ${{ env.HERONAME }}
-          GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
-          GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
-          ENVIRONMENT: ${{ inputs.environment }}
-          REGION: ${{ inputs.region }}
+      - name: Configure environment variables
         run: |
           mkdir ~/.kube/
-          echo "$KUBECONFIG" >> ~/.kube/config
-          echo "$GLOBAL_KUBECONFIG" >> ~/.kube/config 
+          echo "${{ secrets.KUBECONFIG }}" >> ~/.kube/config
+          echo "${{ secrets.GLOBAL_KUBECONFIG }}" >> ~/.kube/config
           cat ~/.kube/config
-          echo $HERONAME
-          echo $GLOBAL_HERONAME 
-          echo $ENVIRONMENT
-          echo $REGION
-
+          echo "HERONAME=${{ env.HERONAME }}"
+          echo "GLOBAL_HERONAME=${{ env.GLOBAL_HERONAME }}"
+          echo "ENVIRONMENT=${{ inputs.environment }}"
+          echo "REGION=${{ inputs.region }}"
