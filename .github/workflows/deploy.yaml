@@ -14,11 +14,11 @@ on:
         required: true
       GLOBAL_KUBECONFIG:
         required: true
-    outputs:
-      HERONAME:
-        required: false
-      GLOBAL_HERONAME:
-        required: false
+    #outputs:
+    #  HERONAME:
+    #    required: false
+    #  GLOBAL_HERONAME:
+    #    required: false
 
 jobs:
   deploy:
@@ -35,7 +35,7 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" >> ~/.kube/config
           echo "${{ secrets.GLOBAL_KUBECONFIG }}" >> ~/.kube/config
           cat ~/.kube/config
-          echo "HERONAME=${{ env.HERONAME }}"
-          echo "GLOBAL_HERONAME=${{ env.GLOBAL_HERONAME }}"
+          #echo "HERONAME=${{ env.HERONAME }}"
+          #echo "GLOBAL_HERONAME=${{ env.GLOBAL_HERONAME }}"
           echo "ENVIRONMENT=${{ inputs.environment }}"
           echo "REGION=${{ inputs.region }}"
