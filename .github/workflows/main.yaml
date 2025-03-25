@@ -53,6 +53,8 @@ jobs:
         action: ${{ github.event.inputs.action || 'install' }}
         dry-run: false
         config-files: prod/helm-watchdog-pod-delete/values.yaml
+        # Extra environment variables if the supported by helm chart
+        values: extraEnvVars.KEY1=value1,extraEnvVars.KEY2=value2
         chart-path: helm-watchdog-pod-delete/helm-watchdog-pod-delete
         version: 0.2.0
         namespace: helm-watchdog-pod-delete
