@@ -20,9 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - env:
-          KUBECONFIG: ${{ secrests.KUBECONFIG }}
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
           HERONAME: ${{ env.HERONAME }}
-          GLOBAL_KUBECONFIG: ${{ secrests.GLOBAL_KUBECONFIG }}
+          GLOBAL_KUBECONFIG: ${{ secrets.GLOBAL_KUBECONFIG }}
           GLOBAL_HERONAME: ${{ env.GLOBAL_HERONAME }}
           ENVIRONMENT: ${{ inputs.environment }}
           REGION: ${{ inputs.region }}
