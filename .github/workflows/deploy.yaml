@@ -27,6 +27,7 @@ jobs:
           ENVIRONMENT: ${{ inputs.environment }}
           REGION: ${{ inputs.region }}
         run: |
+          mkdir ~/.kube/
           echo "$KUBECONFIG" >> ~/.kube/config
           echo "$GLOBAL_KUBECONFIG" >> ~/.kube/config 
           cat ~/.kube/config
